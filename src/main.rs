@@ -60,8 +60,6 @@ fn main() {
     let offset = FixedOffset::east_opt(1 * 60 * 60).unwrap();
     let mut is_calculated_next_date_time = false;
     loop {
-        // TODO if wifi not connected, then try to connect
-
         let now = Utc::now().with_timezone(&offset);
 
         if is_alarm(alarm, now) {
@@ -74,6 +72,7 @@ fn main() {
                 alarm = calculate_next_date_time(&schedule, &offset_crontab);
                 is_calculated_next_date_time = true;
             }
+            // TODO if wifi not connected, then try to connect, remember to allow alarm in any case
             // TODO sync with server every 3 seconds: retrieve configuration
         }
     }
