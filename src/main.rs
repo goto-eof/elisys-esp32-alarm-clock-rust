@@ -2,7 +2,7 @@ use std::str::FromStr;
 
 use chrono::{DateTime, Datelike, FixedOffset, Timelike, Utc};
 mod config;
-use config::ALARM_INTERVAL_SECONDS;
+use config::DEFAULT_ALARM_INTERVAL_SECONDS;
 use cron::Schedule;
 use esp_idf_svc::eventloop::EspSystemEventLoop;
 use esp_idf_svc::nvs::EspDefaultNvsPartition;
@@ -100,7 +100,7 @@ fn is_alarm(alarm: DateTime<FixedOffset>, now: DateTime<FixedOffset>) -> bool {
         && alarm.year() == now.year()
         && alarm.hour() == now.hour()
         && now.minute() >= alarm.minute()
-        && now.minute() <= alarm.minute() + ALARM_INTERVAL_SECONDS
+        && now.minute() <= alarm.minute() + DEFAULT_ALARM_INTERVAL_SECONDS
 }
 
 fn synchronize_clock() {
