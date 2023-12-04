@@ -41,10 +41,14 @@ fn main() {
         FreeRtos::delay_ms(100);
     }
 
+    // TODO retrieve MAC Address
+
     synchronize_clock();
 
     let mut buzzer1 = PinDriver::output(peripherals.pins.gpio5).unwrap();
     let mut buzzer2 = PinDriver::output(peripherals.pins.gpio15).unwrap();
+
+    // TODO download configuration from server
 
     let schedule_result = Schedule::from_str(&config::DEFAULT_CRONTAB);
     let schedule;
