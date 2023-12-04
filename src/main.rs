@@ -77,7 +77,8 @@ fn main() {
                 is_calculated_next_date_time = true;
             }
             // TODO if wifi not connected, then try to connect, remember to allow alarm in any case
-            // TODO sync with server every 3 seconds: retrieve configuration
+            // TODO sync with configuration server every 3 seconds: retrieve configuration
+            // TODO sync with ntp server every 24h
         }
     }
 }
