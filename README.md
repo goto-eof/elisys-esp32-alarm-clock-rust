@@ -23,7 +23,7 @@ pub const DEFAULT_CRONTAB: &[&str; 2] = &[
 pub const DEFAULT_TIMEZONE: i32 = 1 * 60 * 60;
 ```
 
-we are saying that there are 2 alarms, the first one is at 9:45 (**nine** because the DEFAULT_TIMEZONE is +1h = 1*60*60) and occurs from Monday to Friday, every month, and every day of month, from 2023 to 2100 (i tried 2999, but cron throws an error).
+we are saying that there are 2 alarms, the first one is at 9:45 (**nine** because the DEFAULT_TIMEZONE is +1h = 1 x 60 x 60) and occurs from Monday to Friday, every month, and every day of month, from 2023 to 2100 (i tried 2999, but cron throws an error).
 
 # Hardware configuration
 
