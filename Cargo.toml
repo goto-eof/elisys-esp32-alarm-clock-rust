@@ -37,6 +37,7 @@ serde = { version = "1.0.193", features = ["derive"] }
 serde_json = { version = "1.0.108", features = ["raw_value"] }
 cron = "0.12.0"
 chrono = "0.4.31"
+macaddr = "1.0.1"
 
 [build-dependencies]
 embuild = "0.31.3"
