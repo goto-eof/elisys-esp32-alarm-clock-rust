@@ -63,7 +63,7 @@ fn main() {
             info!("{:?} => {:?}", now, alarm);
             is_calculated_next_date_time = false;
         } else {
-            FreeRtos::delay_ms(1000);
+            FreeRtos::delay_ms(100);
             info!("{:?} => {:?}", now, alarm);
             if !is_calculated_next_date_time {
                 alarm = calculate_next_scheduled_time(configuration_crontab, &offset);
@@ -166,7 +166,7 @@ fn is_bzzzzzzzzz_time(alarm: DateTime<FixedOffset>, now: DateTime<FixedOffset>) 
         && alarm.year() == now.year()
         && alarm.hour() == now.hour()
         && now.minute() >= alarm.minute()
-        && now.minute() <= alarm.minute() + DEFAULT_ALARM_INTERVAL_MINUTES
+        && now.minute() <= alarm.minute() + (DEFAULT_ALARM_INTERVAL_MINUTES)
 }
 
 fn is_same_time(alarm: DateTime<FixedOffset>, now: DateTime<FixedOffset>) -> bool {
