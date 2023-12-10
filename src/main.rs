@@ -1,9 +1,7 @@
 use anyhow::Error as StandardError;
 use chrono::{DateTime, Datelike, FixedOffset, TimeZone, Timelike, Utc};
 
-use std::str::FromStr;
-mod config;
-use config::{DEFAULT_ALARM_INTERVAL_MINUTES, DEFAULT_CRONTAB, DEFAULT_TIMEZONE};
+use config::config::{DEFAULT_ALARM_INTERVAL_MINUTES, DEFAULT_CRONTAB, DEFAULT_TIMEZONE};
 use cron::Schedule;
 use embedded_svc::{http::client::Client as HttpClient, io::Write, utils::io};
 use esp_idf_svc::eventloop::EspSystemEventLoop;
@@ -15,21 +13,23 @@ use esp_idf_svc::{
     hal::{delay::FreeRtos, gpio::PinDriver, peripherals::Peripherals},
     sntp::SyncStatus,
 };
+use std::str::FromStr;
 mod dto;
 mod request_i_am_alive;
 
-use crate::config::{
+use crate::dto::config_cron_list_response::CronListResponse;
+use crate::dto::register_device::RegisterDeviceDTO;
+use crate::request_i_am_alive::RequestIAmAlive;
+use config::config::{
     CHECK_INTERVAL_CONFIGURATION_CRON, DEFAULT_CONFIGURATION_URI, DEFAULT_I_AM_ALIVE_ENDPOINT,
     DEFAULT_I_AM_ALIVE_INTERVAL_SECONDS, DEVICE_DESCRIPTION, DEVICE_NAME, DEVICE_TYPE,
     ENABLE_I_AM_ALIVE_ACK, REGISTER_DEVICE_URL, WIFI_PASS, WIFI_SSID,
 };
-use crate::dto::config_cron_list_response::CronListResponse;
-use crate::dto::register_device::RegisterDeviceDTO;
-use crate::request_i_am_alive::RequestIAmAlive;
 use dto::config_request::ConfigRequest;
 use dto::config_response::Configuration as ConfigurationResponse;
 use esp_idf_sys::EspError;
 use log::{error, info, warn};
+mod config;
 fn main() {
     esp_idf_svc::sys::link_patches();
     esp_idf_svc::log::EspLogger::initialize_default();
