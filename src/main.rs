@@ -15,11 +15,9 @@ use esp_idf_svc::{
 };
 use std::str::FromStr;
 mod dto;
-mod request_i_am_alive;
 
 use crate::dto::config_cron_list_response::CronListResponse;
 use crate::dto::register_device::RegisterDeviceDTO;
-use crate::request_i_am_alive::RequestIAmAlive;
 use config::config::{
     CHECK_INTERVAL_CONFIGURATION_CRON, DEFAULT_CONFIGURATION_URI, DEFAULT_I_AM_ALIVE_ENDPOINT,
     DEFAULT_I_AM_ALIVE_INTERVAL_SECONDS, DEVICE_DESCRIPTION, DEVICE_NAME, DEVICE_TYPE,
@@ -27,6 +25,7 @@ use config::config::{
 };
 use dto::config_request::ConfigRequest;
 use dto::config_response::Configuration as ConfigurationResponse;
+use dto::request_i_am_alive::RequestIAmAlive;
 use esp_idf_sys::EspError;
 use log::{error, info, warn};
 mod config;
