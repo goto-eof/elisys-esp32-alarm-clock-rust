@@ -8,7 +8,7 @@ pub struct CronListResponse {
 }
 
 impl CronListResponse {
-    pub fn new(cron: String, description: String) -> CronListResponse {
-        CronListResponse { cron, description }
-    }
+    // pub fn new(cron: String, description: String) -> CronListResponse {
+    //     CronListResponse { cron, description }
+    // }
 }
