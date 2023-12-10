@@ -15,19 +15,19 @@ use esp_idf_svc::{
     hal::{delay::FreeRtos, gpio::PinDriver, peripherals::Peripherals},
     sntp::SyncStatus,
 };
+mod dto;
 mod request_i_am_alive;
 
-pub mod config_cron_list_response;
-mod config_request;
-mod config_response;
 use crate::config::{
     CHECK_INTERVAL_CONFIGURATION_CRON, DEFAULT_CONFIGURATION_URI, DEFAULT_I_AM_ALIVE_ENDPOINT,
-    DEFAULT_I_AM_ALIVE_INTERVAL_SECONDS, ENABLE_I_AM_ALIVE_ACK, WIFI_PASS, WIFI_SSID,
+    DEFAULT_I_AM_ALIVE_INTERVAL_SECONDS, DEVICE_DESCRIPTION, DEVICE_NAME, DEVICE_TYPE,
+    ENABLE_I_AM_ALIVE_ACK, REGISTER_DEVICE_URL, WIFI_PASS, WIFI_SSID,
 };
-use crate::config_cron_list_response::CronListResponse;
-use crate::config_request::ConfigRequest;
+use crate::dto::config_cron_list_response::CronListResponse;
+use crate::dto::register_device::RegisterDeviceDTO;
 use crate::request_i_am_alive::RequestIAmAlive;
-use config_response::Configuration as ConfigurationResponse;
+use dto::config_request::ConfigRequest;
+use dto::config_response::Configuration as ConfigurationResponse;
 use esp_idf_sys::EspError;
 use log::{error, info, warn};
 fn main() {
@@ -46,6 +46,16 @@ fn main() {
     info!("WiFi MAC Address: {:?}", mac_address);
 
     synchronize_clock_insistently_and_connect_wifi_if_necessary(&mut wifi_driver, false);
+
+    let register_device_result = register_device(&mac_address);
+    if register_device_result.is_err() {
+        error!(
+            "Failed to register the device: {:?}",
+            register_device_result
+        );
+    } else {
+        info!("Device registered successfully!");
+    }
 
     let mut buzzer1 = PinDriver::output(peripherals.pins.gpio5).unwrap();
     let mut buzzer2 = PinDriver::output(peripherals.pins.gpio15).unwrap();
@@ -525,4 +535,25 @@ pub fn get_default_configuration(e: StandardError) -> ConfigurationResponse {
         timezone_seconds: DEFAULT_TIMEZONE,
         alarm_interval_minutes: DEFAULT_ALARM_INTERVAL_MINUTES,
     }
+}
+
+pub fn register_device(mac_address: &str) -> anyhow::Result<(), anyhow::Error> {
+    let client = HttpClient::wrap(EspHttpConnection::new(&Default::default())?);
+
+    let payload = serde_json::to_string(&RegisterDeviceDTO::new(
+        mac_address.to_owned(),
+        DEVICE_TYPE.into(),
+        DEVICE_NAME.into(),
+        DEVICE_DESCRIPTION.into(),
+    ))
+    .unwrap();
+    let payload = payload.as_bytes();
+
+    info!("trying to send data...");
+    let result = post_request(payload, client, REGISTER_DEVICE_URL);
+    info!("data sent? {}", !result.is_err());
+    return match result {
+        Err(e) => Err(e.into()),
+        Ok(_) => Ok(()),
+    };
 }

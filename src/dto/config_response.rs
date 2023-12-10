@@ -1,6 +1,6 @@
 use serde::Deserialize;
 
-use crate::config_cron_list_response::CronListResponse;
+use super::config_cron_list_response::CronListResponse;
 
 #[derive(Deserialize, Debug)]
 pub struct Configuration {

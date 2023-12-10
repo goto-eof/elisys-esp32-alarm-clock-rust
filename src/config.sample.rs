@@ -20,3 +20,11 @@ pub const DEFAULT_CONFIGURATION_URI: &str =
 pub const CHECK_INTERVAL_CONFIGURATION_CRON: &str =
     "0   0-59   0-23      1-31       Jan-Dec  Mon,Tue,Wed,Thu,Fri,Sat,Sun          2023-2100";
 pub const ENABLE_I_AM_ALIVE_ACK: bool = false;
+// Device registration endpoint
+pub const REGISTER_DEVICE_URL: &str = "http://192.168.1.102:8080/api/v1/device/register";
+// Device name
+pub const DEVICE_NAME: &str = "Alarm Clock";
+// Device description
+pub const DEVICE_DESCRIPTION: &str = "Alarm Clock Device";
+// Device type
+pub const DEVICE_TYPE: &str = "AlarmClock";
