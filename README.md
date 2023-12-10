@@ -48,4 +48,8 @@ and hold the Boot button of your ESP32 DevKitC to install the software.
 
 During my tests I had some issues with my WiFi network, so that i tried to adapt the code in a way to make the device always connected to internet.
 
+I tested on ESP32-DevKitC and developed on Ubuntu. If you have environment configuration issues, take a look [here](https://dodu.it/esp32-rust-configure-environment-linux-ubuntu/).
+
+
+
 If you found a bug, please ping me [here](https://andre-i.eu/#contactme).
