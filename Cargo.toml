@@ -1,6 +1,6 @@
 [package]
 name = "elisys-esp32-alarm-clock-rust"
-version = "0.1.0"
+version = "0.5.0"
 authors = ["Andrei Dodu"]
 edition = "2021"
 resolver = "2"
