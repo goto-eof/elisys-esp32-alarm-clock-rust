@@ -81,6 +81,7 @@ pub fn retrieve_config_if_necessary(
     mac_address: &String,
     configuration: &mut ConfigurationResponse,
     wifi_driver: &mut EspWifi<'static>,
+    is_calculated_alarm_next_date_time: &mut bool,
 ) {
     let old_cron_time = *cron_time;
     *cron_time = from_str_to_date_time_after(&now, CHECK_INTERVAL_CONFIGURATION_CRON, &offset);
@@ -95,6 +96,7 @@ pub fn retrieve_config_if_necessary(
         };
 
         *downloaded = true;
+        *is_calculated_alarm_next_date_time = false;
     }
     if !is_same_time_sec(old_cron_time, now) && *downloaded {
         *downloaded = false;

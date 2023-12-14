@@ -125,15 +125,6 @@ fn sync_data_if_needed(
         now, alarm
     );
 
-    calculate_alarm_next_date_time(
-        is_calculated_alarm_next_date_time,
-        alarm,
-        &*configuration,
-        user_timezone_offset,
-    );
-
-    sync_system_clock_if_necessary(ntp_synchronized, ntp_sync_time, now, wifi_driver);
-
     retrieve_config_if_necessary(
         is_last_config_sync,
         cron_time,
@@ -142,7 +133,17 @@ fn sync_data_if_needed(
         mac_address,
         configuration,
         wifi_driver,
+        is_calculated_alarm_next_date_time
     );
+
+    calculate_alarm_next_date_time(
+        is_calculated_alarm_next_date_time,
+        alarm,
+        &*configuration,
+        user_timezone_offset,
+    );
+
+    sync_system_clock_if_necessary(ntp_synchronized, ntp_sync_time, now, wifi_driver);
 
     if ENABLE_I_AM_ALIVE_ACK {
         send_i_am_alive_if_necessary(
