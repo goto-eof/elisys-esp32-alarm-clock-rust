@@ -1,6 +1,6 @@
 # Elisys ESP32 Alarm Clock (Rust)
 
-Elisys ESP32 Alarm Clock (Rust), as can be understood, is an alarm clock developed using Rust programming language for ESP32 devices. This project belongs to the suite of softwares called Elisys Home Automation. Take a look to [Elisys Home Automation server (Java)](https://github.com/goto-eof/elisys-home-automation-server-java) for more information.
+Elisys ESP32 Alarm Clock (Rust), as can be understood, is an alarm clock software, developed using Rust programming language for ESP32 devices. This project belongs to the suite of softwares called Elisys Home Automation. Take a look to [Elisys Home Automation server (Java)](https://github.com/goto-eof/elisys-home-automation-server-java) for more information.
 
 In order to run the project please take a look to the `Configuration` section (else, it will not compile).
 
